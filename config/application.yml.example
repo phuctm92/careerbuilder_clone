@@ -1,7 +1,10 @@
-development: &default
+default: &default
   # database
-  PRIMARY_DB_USERNAME: ''
-  PRIMARY_DB_PASSWORD: ''
+  PRIMARY_DB_USERNAME: 'root'
+  PRIMARY_DB_PASSWORD: '123456'
+
+development:
+  <<: *default
 
 test:
   <<: *default

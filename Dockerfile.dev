@@ -1,0 +1,26 @@
+FROM ruby:3.0.1
+
+ENV RAILS_ENV=development
+ENV NODE_ENV=development
+ENV RACK_ENV=development
+ENV MALLOC_ARENA_MAX=2
+ENV NOKOGIRI_USE_SYSTEM_LIBRARIES=1
+
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs default-libmysqlclient-dev
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+RUN echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get -y update && apt-get install -y yarn nano vim
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN gem uninstall bundler
+RUN gem install bundler -v 2.2.17
+
+WORKDIR /webapp
+
+COPY Gemfile Gemfile.lock /webapp/
+
+RUN bundle install -j $(grep ^cpu\\scores /proc/cpuinfo | uniq |  awk '{print $4}')
+
+COPY package.json yarn.lock /webapp/
+RUN yarn install --check-files

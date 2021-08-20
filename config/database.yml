@@ -13,14 +13,15 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch('PRIMARY_DB_USERNAME', 'root') %>
-  password: <%= ENV.fetch('PRIMARY_DB_PASSWORD', '123456') %>
+  username: <%= ENV['PRIMARY_DB_USERNAME'] %>
+  password: <%= ENV['PRIMARY_DB_PASSWORD'] %>
+  host: db
   socket: /var/run/mysqld/mysqld.sock
   timeout: 5000
 
 development:
   <<: *default
-  database: careerbuilder_clone_development
+  database: careerbuilder_clone
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -52,5 +53,5 @@ test:
 production:
   <<: *default
   database: careerbuilder_clone_production
-  username: <%= ENV('CAREERBUILDER_DB_USERNAME') %>
-  password: <%= ENV('CAREERBUILDER_DB_PASSWORD') %>
+  username: <%= ENV['CAREERBUILDER_DB_USERNAME'] %>
+  password: <%= ENV['CAREERBUILDER_DB_PASSWORD'] %>

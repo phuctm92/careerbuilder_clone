@@ -1,0 +1,51 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0
+    command: '--default-authentication-plugin=mysql_native_password'
+    environment:
+      MYSQL_DATABASE: careerbuilder_clone
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - '13306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  web:
+    image: careerbuidler-web:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: sh ./docker-entrypoint.dev.sh
+    environment:
+      PORT: 3000
+    volumes:
+      - ".:/webapp"
+    ports:
+      - "13000:3000"
+    depends_on:
+      - db
+      - mailcatcher
+    stdin_open: true
+    tty: true
+
+  webpacker:
+    image: careerbuidler-web:latest
+    command: /bin/bash -lc "cd /webapp; bundle && yarn && yarn start"
+    volumes:
+      - .:/webapp
+    ports:
+      - '13035:3035'
+    depends_on:
+      - web
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+
+  mailcatcher:
+    image: sj26/mailcatcher:latest
+    command: mailcatcher --foreground --ip 0.0.0.0
+    ports:
+      - '11080:1080'
+
+volumes:
+  mysql-data:
