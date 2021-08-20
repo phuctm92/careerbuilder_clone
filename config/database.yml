@@ -13,9 +13,10 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password:
+  username: <%= ENV.fetch('PRIMARY_DB_USERNAME', 'root') %>
+  password: <%= ENV.fetch('PRIMARY_DB_PASSWORD', '123456') %>
   socket: /var/run/mysqld/mysqld.sock
+  timeout: 5000
 
 development:
   <<: *default
@@ -51,5 +52,5 @@ test:
 production:
   <<: *default
   database: careerbuilder_clone_production
-  username: careerbuilder_clone
-  password: <%= ENV['CAREERBUILDER_CLONE_DATABASE_PASSWORD'] %>
+  username: <%= ENV('CAREERBUILDER_DB_USERNAME') %>
+  password: <%= ENV('CAREERBUILDER_DB_PASSWORD') %>

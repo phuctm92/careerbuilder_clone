@@ -1,0 +1,7 @@
+development: &default
+  # database
+  PRIMARY_DB_USERNAME: ''
+  PRIMARY_DB_PASSWORD: ''
+
+test:
+  <<: *default
