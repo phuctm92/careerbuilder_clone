@@ -1,3 +1,3 @@
 class Category < ApplicationRecord
-  has_many :industries, dependent: :destroy
+  has_many :industries
 end

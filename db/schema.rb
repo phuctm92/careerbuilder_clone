@@ -10,16 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_27_051756) do
-
-  create_table "benefits_jobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "benefit_id"
-    t.bigint "job_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["benefit_id"], name: "index_benefits_jobs_on_benefit_id"
-    t.index ["job_id"], name: "index_benefits_jobs_on_job_id"
-  end
+ActiveRecord::Schema.define(version: 2021_09_27_061028) do
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -74,20 +65,19 @@ ActiveRecord::Schema.define(version: 2021_09_27_051756) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "jbenefits_jobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "jbenefit_id"
+    t.bigint "job_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["jbenefit_id"], name: "index_jbenefits_jobs_on_jbenefit_id"
+    t.index ["job_id"], name: "index_jbenefits_jobs_on_job_id"
+  end
+
   create_table "jlevels", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "job_joins", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "job_id"
-    t.bigint "job_joinable_id"
-    t.string "job_joinable_type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["job_id"], name: "index_job_joins_on_job_id"
-    t.index ["job_joinable_id", "job_joinable_type"], name: "index_job_joins_on_job_joinable_id_and_job_joinable_type"
   end
 
   create_table "jobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
