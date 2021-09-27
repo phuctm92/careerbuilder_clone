@@ -7,4 +7,5 @@ class Job < ApplicationRecord
   has_many :jbenefits, through: :benefits_jobs
   belongs_to :jlevel
   belongs_to :jtype
+  belongs_to :company
 end

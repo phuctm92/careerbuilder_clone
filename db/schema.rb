@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_27_051621) do
+ActiveRecord::Schema.define(version: 2021_09_27_051756) do
+
+  create_table "benefits_jobs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "benefit_id"
+    t.bigint "job_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["benefit_id"], name: "index_benefits_jobs_on_benefit_id"
+    t.index ["job_id"], name: "index_benefits_jobs_on_job_id"
+  end
 
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
@@ -96,7 +105,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_051621) do
     t.text "information"
     t.bigint "jtype_id"
     t.bigint "jlevel_id"
-    t.bigint "company_id", null: false
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_jobs_on_company_id"
@@ -111,7 +120,4 @@ ActiveRecord::Schema.define(version: 2021_09_27_051621) do
   end
 
   add_foreign_key "industries", "categories"
-  add_foreign_key "jobs", "companies"
-  add_foreign_key "jobs", "jlevels"
-  add_foreign_key "jobs", "jtypes"
 end

@@ -1,4 +1,4 @@
 class Jbenefit < ApplicationRecord
-  has_many :job_joins, as: :job_joinable
-  has_many :jobs, through: :job_joins
+  has_many :benefits_jobs
+  has_many :jobs, through: :benefits_jobs
 end

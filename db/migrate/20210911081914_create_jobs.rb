@@ -13,9 +13,9 @@ class CreateJobs < ActiveRecord::Migration[6.1]
       t.text       :description
       t.text       :requirement
       t.text       :information
-      t.references :jtype,  foreign_key: true
-      t.references :jlevel, foreign_key: true
-      t.references :company, foreign_key: true, null: false
+      t.references :jtype
+      t.references :jlevel
+      t.references :company
 
       t.timestamps
     end
