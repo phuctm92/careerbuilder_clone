@@ -1,4 +1,4 @@
 class City < ApplicationRecord
-  has_many :job_joins, as: :job_joinable
-  has_many :jobs, through: :job_joins
+  has_many :cities_jobs
+  has_many :jobs, through: :cities_jobs
 end
